@@ -3,7 +3,7 @@ import TextInputGroup from './TextInputGroup'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { addContact } from '../actions/contactActions'
-import uuid from 'uuid'
+// import uuid from 'uuid'
 // import axios from 'axios'
 
 class AddContact extends Component {
@@ -32,7 +32,7 @@ class AddContact extends Component {
     // If the errors object is empty then add contact
     if (!Object.keys(errors).length) {
       const newContact = {
-        id: uuid(),
+        // id: uuid(), -- when using jsonplaceholder it will provide the id
         name,
         email,
         phone,
