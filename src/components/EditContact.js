@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import TextInputGroup from './TextInputGroup'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { getContact } from '../actions/contactActions'
+import { getContact, updateContact } from '../actions/contactActions'
 // import uuid from 'uuid'
 // import axios from 'axios'
 
@@ -50,12 +50,14 @@ class EditContact extends Component {
       const { id } = this.props.match.params
 
       const updatedContact = {
+        id,
         name,
         email,
         phone,
       }
 
       // UPDATE CONTACT
+      this.props.updateContact(updatedContact)
 
       // Clear fields in state
       this.setState({
@@ -120,6 +122,7 @@ class EditContact extends Component {
 EditContact.propTypes = {
   contact: PropTypes.object.isRequired,
   getContact: PropTypes.func.isRequired,
+  updateContact: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
@@ -128,5 +131,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getContact },
+  { getContact, updateContact },
 )(EditContact)
