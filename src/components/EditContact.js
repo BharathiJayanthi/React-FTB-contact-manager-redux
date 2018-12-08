@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import TextInputGroup from './TextInputGroup'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { getContact } from '../actions/contactActions'
 // import uuid from 'uuid'
 // import axios from 'axios'
 
@@ -11,6 +14,20 @@ class EditContact extends Component {
     email: '',
     phone: '',
     errors: {},
+  }
+
+  UNSAFE_componentWillReceiveProps(nextProps, nextState) {
+    const { name, email, phone } = nextProps.contact
+    this.setState({
+      name,
+      email,
+      phone,
+    })
+  }
+
+  componentDidMount() {
+    const { id } = this.props.match.params
+    this.props.getContact(id)
   }
 
   // Update state when typing in inputs
@@ -100,4 +117,16 @@ class EditContact extends Component {
   }
 }
 
-export default EditContact
+EditContact.propTypes = {
+  contact: PropTypes.object.isRequired,
+  getContact: PropTypes.func.isRequired,
+}
+
+const mapStateToProps = state => ({
+  contact: state.contact.contact,
+})
+
+export default connect(
+  mapStateToProps,
+  { getContact },
+)(EditContact)
