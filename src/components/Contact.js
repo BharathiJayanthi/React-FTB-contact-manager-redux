@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { deleteContact } from '../actions/contactActions'
 // import axios from 'axios'
 
 class Contact extends Component {
@@ -13,8 +15,8 @@ class Contact extends Component {
     // If 'showContactInfo' is true then part of the UI is displayed, otherwise hidden (see near bottom of render)
   }
 
-  onDeleteClick = async (id, dispatch) => {
-    // DELETE CONTACT
+  onDeleteClick = id => {
+    this.props.deleteContact(id)
   }
 
   render() {
@@ -61,6 +63,10 @@ class Contact extends Component {
 
 Contact.propTypes = {
   contact: PropTypes.object.isRequired,
+  deleteContact: PropTypes.func.isRequired,
 }
 
-export default Contact
+export default connect(
+  null,
+  { deleteContact },
+)(Contact)

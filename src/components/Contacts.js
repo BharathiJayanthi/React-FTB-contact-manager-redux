@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react'
 import Contact from './Contact'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { GET_CONTACTS } from '../actions/types'
 import { getContacts } from '../actions/contactActions'
 
 class Contacts extends Component {

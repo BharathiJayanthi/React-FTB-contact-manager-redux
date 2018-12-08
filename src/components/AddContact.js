@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import TextInputGroup from './TextInputGroup'
-// import uuid from 'uuid'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { addContact } from '../actions/contactActions'
+import uuid from 'uuid'
 // import axios from 'axios'
 
 class AddContact extends Component {
@@ -29,12 +32,14 @@ class AddContact extends Component {
     // If the errors object is empty then add contact
     if (!Object.keys(errors).length) {
       const newContact = {
+        id: uuid(),
         name,
         email,
         phone,
       }
 
       // SUBMIT CONTACT
+      this.props.addContact(newContact)
 
       // Clear fields in state
       this.setState({
@@ -96,4 +101,11 @@ class AddContact extends Component {
   }
 }
 
-export default AddContact
+AddContact.propTypes = {
+  addContact: PropTypes.func.isRequired,
+}
+
+export default connect(
+  null,
+  { addContact },
+)(AddContact)
