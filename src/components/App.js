@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 // may need to change BrowserRouter to HashRouter when deployed
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+
 import Header from './Header'
 import Contacts from './Contacts'
 import AddContact from './AddContact'

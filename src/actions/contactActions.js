@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 import {
   GET_CONTACTS,
   GET_CONTACT,
@@ -5,7 +7,6 @@ import {
   UPDATE_CONTACT,
   DELETE_CONTACT,
 } from './types'
-import axios from 'axios'
 
 export const getContacts = () => async dispatch => {
   const res = await axios.get('https://jsonplaceholder.typicode.com/users')

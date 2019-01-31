@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
-import TextInputGroup from './TextInputGroup'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+
+import TextInputGroup from './TextInputGroup'
 import { addContact } from '../actions/contactActions'
-// import uuid from 'uuid'
-// import axios from 'axios'
 
 class AddContact extends Component {
   state = {
@@ -14,34 +13,35 @@ class AddContact extends Component {
     errors: {},
   }
 
-  onChange = e => this.setState({ [e.target.name]: e.target.value })
+  onChange = e => this.setState({ [e.target.name]: e.target.value.trimLeft() })
 
   onSubmit = e => {
     e.preventDefault()
 
     const { name, email, phone } = this.state
-    // Check for errors
-    let errors = {}
+
+    //* Check for errors, add to new errors object
+    const errors = {}
     if (!name) errors.name = 'Name is required'
     if (!email) errors.email = 'Email is required'
     if (!phone) errors.phone = 'Phone number is required'
 
+    //* update 'errors' object in state with newly created errors object above
     this.setState({ errors })
     // The errors object's properties are passed into the TextInputGroup components as props, seen below in render().  They effect the UI within the TextInputGroup component
 
-    // If the errors object is empty then add contact
+    //* If the errors object is empty then add contact
     if (!Object.keys(errors).length) {
       const newContact = {
-        // id: uuid(), -- when using jsonplaceholder it will provide the id
-        name,
-        email,
-        phone,
+        name: name.trim(),
+        email: email.trim(),
+        phone: phone.trim(),
       }
 
-      // SUBMIT CONTACT
+      //* SUBMIT CONTACT
       this.props.addContact(newContact)
 
-      // Clear fields in state
+      //* Clear fields in state
       this.setState({
         name: '',
         email: '',
@@ -49,7 +49,7 @@ class AddContact extends Component {
         errors: {},
       })
 
-      // Redirect back to the home page of contacts
+      //* Redirect back to the home page of contacts
       this.props.history.push('/')
     }
   }
@@ -63,6 +63,7 @@ class AddContact extends Component {
         <div className="card-body">
           <form onSubmit={this.onSubmit}>
             <TextInputGroup
+              autofocus={true}
               label="Name"
               name="name"
               type="text"
@@ -89,6 +90,8 @@ class AddContact extends Component {
               onChange={this.onChange}
               error={errors.phone}
             />
+
+            {/*//* SUBMIT BUTTON */}
             <input
               type="submit"
               value="Add Contact"

@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+
 import { deleteContact } from '../actions/contactActions'
-// import axios from 'axios'
 
 class Contact extends Component {
   state = {
@@ -12,7 +12,6 @@ class Contact extends Component {
 
   onShowClick = () => {
     this.setState({ showContactInfo: !this.state.showContactInfo })
-    // If 'showContactInfo' is true then part of the UI is displayed, otherwise hidden (see near bottom of render)
   }
 
   onDeleteClick = id => {
@@ -26,17 +25,20 @@ class Contact extends Component {
     return (
       <div className="card card-body mb-3">
         <h4>
-          {name}{' '}
+          {`${name} `}
+          {/*//* SHOW DETAILS ARROW */}
           <i
             onClick={this.onShowClick}
             className="fas fa-sort-down"
             style={{ cursor: 'pointer' }}
           />
+          {/*//* DELETE CONTACT */}
           <i
-            onClick={this.onDeleteClick.bind(this, id)}
+            onClick={() => this.onDeleteClick(id)}
             className="fas fa-times"
             style={{ cursor: 'pointer', float: 'right', color: 'red' }}
           />
+          {/*//* EDIT CONTACT (navigate to Edit Component) */}
           <Link to={`contact/edit/${id}`}>
             <i
               className="fas fa-pencil-alt"
@@ -49,7 +51,7 @@ class Contact extends Component {
             />
           </Link>
         </h4>
-        {/* only displayed if 'showContactInfo' is 'true' */}
+        {/*//* Contact details, only displayed if 'showContactInfo' is 'true' (arrow icon clicked) */}
         {showContactInfo ? (
           <ul className="list-group">
             <li className="list-group-item">Email: {email}</li>

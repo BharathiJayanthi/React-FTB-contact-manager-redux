@@ -11,9 +11,7 @@ const Header = props => {
         <Link to="/" className="navbar-brand">
           {branding}
         </Link>
-        {/* <a href="/" className="navbar-brand">
-          {branding}
-        </a> */}
+
         <div>
           <ul className="navbar-nav mr-auto">
             <li className="nav-item">
@@ -21,11 +19,13 @@ const Header = props => {
                 <i className="fas fa-home" /> Home
               </Link>
             </li>
+
             <li className="nav-item">
               <Link to="/contact/add" className="nav-link">
                 <i className="fas fa-plus" /> Add
               </Link>
             </li>
+
             <li className="nav-item">
               <Link to="/about" className="nav-link">
                 <i className="fas fa-question" /> About
