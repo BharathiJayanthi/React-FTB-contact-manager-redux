@@ -15,18 +15,31 @@ class EditContact extends Component {
     errors: {},
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps, nextState) {
-    const { name, email, phone } = nextProps.contact
+  // UNSAFE_componentWillReceiveProps(nextProps, nextState) {
+  //   const { name, email, phone } = nextProps.contact
+  //   this.setState({
+  //     name,
+  //     email,
+  //     phone,
+  //   })
+  // }
+
+  // componentDidMount() {
+  //   const { id } = this.props.match.params
+  //   this.props.getContact(id)
+  // }
+
+  //* async CDM method replaces need for deprecated CWRP method
+  async componentDidMount() {
+    const { id } = this.props.match.params
+    await this.props.getContact(id)
+
+    const { name, email, phone } = this.props.contact
     this.setState({
       name,
       email,
       phone,
     })
-  }
-
-  componentDidMount() {
-    const { id } = this.props.match.params
-    this.props.getContact(id)
   }
 
   onChange = e => this.setState({ [e.target.name]: e.target.value.trimLeft() })
@@ -55,7 +68,7 @@ class EditContact extends Component {
         phone: phone.trim(),
       }
 
-      // UPDATE CONTACT
+      //* UPDATE CONTACT
       this.props.updateContact(updatedContact)
 
       // Clear fields in state
