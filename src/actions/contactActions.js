@@ -56,6 +56,7 @@ export const deleteContact = id => async dispatch => {
   } catch (error) {
     console.log(error)
   }
+  //* 'dispatch' not in the 'try' block b/c the delete will error if it's requested on a contact that you created, since it won't be on the database.  Therefore, dispatch will never be called if attempting to delete an added contact
   dispatch({
     type: DELETE_CONTACT,
     payload: id,
